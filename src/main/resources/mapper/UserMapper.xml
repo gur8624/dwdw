@@ -20,7 +20,7 @@
     </update>
 
     <delete id="deleteUser" parameterType="String">
-        delete from user_tb where u_id = #{u_id} cascade
+        delete from user_tb where u_id = #{u_id}
     </delete>
 
     <select id="userListCnt" resultType="int">

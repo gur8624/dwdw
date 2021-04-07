@@ -25,7 +25,7 @@ public class UserService {
         return userMapper.readUser(id);
     }
 
-    public void BoardUpdate(UserDto userDto) {
+    public void UserUpdate(UserDto userDto) {
         userMapper.updateUser(userDto);
     }
 
@@ -33,7 +33,7 @@ public class UserService {
        userMapper.deleteUser(userDto);
     }
 
-    public int boardListCnt(){
+    public int userListCnt(){
         return userMapper.userListCnt();
     }
 }

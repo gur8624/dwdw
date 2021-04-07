@@ -10,11 +10,11 @@ import java.util.List;
 public interface AgencyMapper {
     List<AgencyDto> AgencyList(Criteria criteria); // 리스트
 
-    AgencyDto readAgency(char agcy_id); // 글 열람
+    AgencyDto readAgency(String agcy_id); // 글 열람
 
-    void updateAgency(String title, String content, String time); //업데이트
+    void updateAgency(AgencyDto agencyDto); //업데이트
 
-    void deleteAgency(String time); // 삭제
+    void deleteAgency(AgencyDto agencyDto); // 삭제
 
-    int AgencyListCnt(); // 페이지 수
+    int agencyListCnt(); // 페이지 수
 }

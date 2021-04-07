@@ -1,6 +1,5 @@
 package com.example.dwdw.controller;
 
-import com.example.dwdw.dto.BoardDto;
 import com.example.dwdw.dto.Criteria;
 import com.example.dwdw.dto.UserDto;
 import com.example.dwdw.service.Pagination;
@@ -8,7 +7,6 @@ import com.example.dwdw.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -30,7 +28,7 @@ public class UserController {
 
         Map<String, Object> aaa = new HashMap<String, Object>();
         List<UserDto> userDto = null;
-        Pagination pagination = new Pagination(userService.boardListCnt(), page, 10);
+        Pagination pagination = new Pagination(userService.userListCnt(), page, 10);
         criteria.setPage(pagination.getPage());
         userDto = userService.UserList(criteria);
         aaa.put("page", page);
@@ -56,7 +54,7 @@ public class UserController {
     @PostMapping("modify")
     @ResponseBody
     public Map<String, Object> modify(@RequestBody UserDto userDto){
-        userService.BoardUpdate(userDto);
+        userService.UserUpdate(userDto);
         Map<String, Object> aa = new HashMap<String, Object>();
         aa.put("userdto", userDto);
         return aa;
@@ -64,11 +62,8 @@ public class UserController {
 
     @PostMapping("remove")
     @ResponseBody
-    public Map<String, Object> remove(@RequestBody UserDto userDto){
-        log.info("userdto++++++++++++++++++++++++++=" + userDto);
+    public void remove(@RequestBody UserDto userDto){
+        log.info("userdto++++++++++++++++++++++++????++=" + userDto);
         userService.UserDelete(userDto);
-        Map<String, Object> aaaa = new HashMap<String, Object>();
-        aaaa.put("id", userDto);
-        return aaaa;
     }
 }
