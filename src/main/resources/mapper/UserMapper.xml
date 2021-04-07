@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dwdw.mapper.UserMapper">
+    <select id="UserList" resultType="com.example.dwdw.dto.UserDto">
+        select * from (select row_number() over (order by u_reg_dt desc) ronum,
+                              u_id, u_email, u_pwd, u_phone, u_reg_dt from user_tb)
+        where ronum between #{rowStart} and #{rowEnd}
+        order by u_reg_dt desc
+    </select>
+
+    <select id="readUser" parameterType="String" resultType="com.example.dwdw.dto.UserDto">
+        select * from USER_TB
+        where u_id = #{id}
+    </select>
+
+    <update id="updateUser" parameterType="String">
+        update user_tb set u_email= #{u_email} ,u_pwd= #{u_pwd}, u_phone= #{u_phone} where u_id = #{u_id}
+    </update>
+
+    <delete id="deleteUser" parameterType="String">
+        delete from user_tb where u_id = #{u_id} cascade
+    </delete>
+
+    <select id="userListCnt" resultType="int">
+        select count(*) from user_tb
+    </select>
+</mapper>
