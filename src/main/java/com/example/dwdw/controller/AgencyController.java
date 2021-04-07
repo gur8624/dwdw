@@ -53,12 +53,8 @@ public class AgencyController {
 
     @PostMapping("modify")
     @ResponseBody
-    public Map<String, Object> modify(@RequestBody AgencyDto agencyDto){
+    public void modify(@RequestBody AgencyDto agencyDto){
         agencyService.AgencyUpdate(agencyDto);
-        Map<String, Object> bb = new HashMap<String, Object>();
-//        AgencyDto dto = new AgencyDto();
-        bb.put("agencydto", agencyDto);
-        return bb;
     }
 
     @PostMapping("remove")
