@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dwdw.mapper.ChargerMapper">
+    <select id="ChargerList" resultType="com.example.dwdw.dto.ChargerDto">
+        select * from (select row_number() over (order by chg_st_dt desc) ronum,
+                              chg_id, chg_type, chg_method, chg_st, chg_st_dt, chg_rsvt, agcy_id, stat_id from charger_tb)
+        where ronum between #{rowStart} and #{rowEnd}
+        order by chg_st_dt desc
+    </select>
+
+    <select id="readCharger" parameterType="String" resultType="com.example.dwdw.dto.ChargerDto">
+        select * from charger_tb
+        where chg_id = #{chg_id}
+    </select>
+
+    <update id="updateCharger">
+        update charger_tb set chg_type= #{chg_type} ,chg_method= #{chg_method}, chg_st= #{chg_st}, chg_st_dt= systimestamp,
+                              chg_rsvt= #{chg_rsvt}
+        where chg_id = #{chg_id}
+    </update>
+
+    <delete id="deleteCharger" parameterType="String">
+        delete from charger_tb where chg_id = #{chg_id}
+    </delete>
+
+    <select id="chargerListCnt" resultType="int">
+        select count(*) from charger_tb
+    </select>
+</mapper>
