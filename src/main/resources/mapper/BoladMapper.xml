@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dwdw.mapper.BoladMapper">
+    <select id="BoladList" resultType="com.example.dwdw.dto.BoladDto">
+        select * from (select row_number() over (order by bol_setup_dt desc) ronum,
+                              bol_cd, chg_id, bol_st, bol_setup_dt from bolad_tb)
+        where ronum between #{rowStart} and #{rowEnd}
+        order by bol_setup_dt desc
+    </select>
+
+    <select id="readBolad" parameterType="String" resultType="com.example.dwdw.dto.BoladDto">
+        select * from bolad_tb
+        where bol_cd = #{bol_cd}
+    </select>
+
+    <update id="updateBolad">
+        update bolad_tb set bol_st= #{bol_st}, bol_setup_dt= systimestamp
+        where bol_cd = #{bol_cd}
+    </update>
+
+    <delete id="deleteBolad" parameterType="String">
+        delete from bolad_tb where bol_cd = #{bol_cd}
+    </delete>
+
+    <select id="boladListCnt" resultType="int">
+        select count(*) from bolad_tb
+    </select>
+</mapper>
