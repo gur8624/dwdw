@@ -34,6 +34,7 @@ public class UserController {
         aaa.put("page", page);
         aaa.put("pagination", pagination);
         aaa.put("critia", criteria);
+        aaa.put("userdto", userDto);
 
         return aaa;
     }

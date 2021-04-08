@@ -34,6 +34,7 @@ public class AgencyController {
         bbb.put("page", page);
         bbb.put("pagination", pagination);
         bbb.put("critia", criteria);
+        bbb.put("agency", agency);
 
         return bbb;
     }
@@ -47,6 +48,7 @@ public class AgencyController {
         AgencyDto dto = agencyService.readAgency(agencyDto.getAgcy_id());
         a.put("id", dto);
         a.put("criteria", criteria);
+
 
         return a;
     }

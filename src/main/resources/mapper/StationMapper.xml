@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dwdw.mapper.StationMapper">
+    <select id="StationList" resultType="com.example.dwdw.dto.StationDto">
+        select * from (select row_number() over (order by stat_id desc) ronum,
+                              stat_id, stat_nm, stat_addr, stat_lat, stat_lng from station_tb)
+        where ronum between #{rowStart} and #{rowEnd}
+        order by stat_id desc
+    </select>
+
+    <select id="readStation" parameterType="String" resultType="com.example.dwdw.dto.StationDto">
+        select * from station_tb
+        where stat_id = #{stat_id}
+    </select>
+
+    <update id="updateStation">
+        update station_tb set stat_nm= #{stat_nm} ,stat_addr= #{stat_addr}, stat_lat= #{stat_lat}, stat_lng= #{stat_lng}
+        where stat_id = #{stat_id}
+    </update>
+
+    <delete id="deleteStation" parameterType="String">
+        delete from station_tb where stat_id = #{stat_id}
+    </delete>
+
+    <select id="stationListCnt" resultType="int">
+        select count(*) from station_tb
+    </select>
+</mapper>
